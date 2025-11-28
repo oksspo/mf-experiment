@@ -15,7 +15,11 @@
     "react-router-dom": "^7.9.6"
   },
   "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@module-federation/rsbuild-plugin": "^0.19.1",
+    "@mui/icons-material": "^7.3.5",
+    "@mui/material": "^7.3.5",
     "@rsbuild/core": "^1.5.12",
     "@rsbuild/plugin-react": "^1.4.1",
     "@types/react": "^19.1.13",
