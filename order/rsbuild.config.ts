@@ -11,4 +11,10 @@ export default defineConfig({
     port: 3001,
     open: false,
   },
+  source: {
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? 'production'),
+      'process.env.ORDER_PUBLIC_URL': JSON.stringify(process.env.ORDER_PUBLIC_URL ?? ''),
+    },
+  },
 });

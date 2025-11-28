@@ -8,4 +8,11 @@ export default defineConfig({
   output: {
     assetPrefix: process.env.HOST_PUBLIC_URL || '/mf-experiment/',
   },
+  source: {
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV ?? 'production'),
+      'process.env.HOST_PUBLIC_URL': JSON.stringify(process.env.HOST_PUBLIC_URL ?? ''),
+      'process.env.ORDER_REMOTE_URL': JSON.stringify(process.env.ORDER_REMOTE_URL ?? ''),
+    },
+  },
 });
