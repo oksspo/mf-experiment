@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         # folders with your rsbuild apps
-        app: [host, order]
+        app: [hyperion, order]
 
     env:
       NODE_VERSION: 20
@@ -70,10 +70,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download host build
+      - name: Download hyperion build
         uses: actions/download-artifact@v4
         with:
-          name: host-dist
+          name: hyperion-dist
           path: public-root
 
       - name: Download order build
