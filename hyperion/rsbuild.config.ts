@@ -6,6 +6,6 @@ import moduleFederationConfig from './module-federation.config';
 export default defineConfig({
   plugins: [pluginReact(), pluginModuleFederation(moduleFederationConfig)],
   output: {
-    assetPrefix: process.env.HOST_PUBLIC_URL || '/',
+    assetPrefix: process.env.HOST_PUBLIC_URL || '/mf-experiment/',
   },
 });
