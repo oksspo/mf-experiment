@@ -3,7 +3,7 @@ import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin'
 export default createModuleFederationConfig({
   name: 'hyperion',
   remotes: {
-    'order': 'order@http://localhost:3001/remoteEntry.js'
+    order: `order@${process.env.ORDER_REMOTE_URL}/remoteEntry.js`,
   },
   shareStrategy: 'loaded-first',
   filename: 'remoteEntry.js',

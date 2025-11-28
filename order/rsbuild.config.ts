@@ -5,7 +5,9 @@ import moduleFederationConfig from './module-federation.config';
 
 export default defineConfig({
   plugins: [pluginReact(), pluginModuleFederation(moduleFederationConfig)],
-  server: {
+  output: {
+    assetPrefix: process.env.ORDER_PUBLIC_URL || '/',
+  },  server: {
     port: 3001,
     open: false,
   },

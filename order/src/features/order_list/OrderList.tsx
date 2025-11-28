@@ -36,6 +36,8 @@ interface Order {
     endDate: string;
 }
 
+const FONT_FAMILY = `Roboto, "Helvetica Neue", sans-serif`;
+
 const orders: Order[] = [
     {
         id: "1",
@@ -49,36 +51,9 @@ const orders: Order[] = [
         lastChange: "11/27/2025",
         endDate: "01/01/2026",
     },
-    {
-        id: "2",
-        orderNumber: "DZR-19641",
-        address: "Arthur-Hoffmann-Straße 59\n04275 Leipzig",
-        location: "1208012\nEG rechts",
-        totalArea: "51.40 m²",
-        status: "draft",
-        totalPriceGrossTop: "€987.75",
-        totalPriceGrossBottom: "€987.75",
-        lastChange: "11/27/2025",
-        endDate: "01/01/2026",
-    },
-    {
-        id: "3",
-        orderNumber: "DZR-19640",
-        address: "Rheinhäuser Straße 106\n68165 Mannheim",
-        location: "18936106.1010\n106/010/3. OG links",
-        totalArea: "52.90 m²",
-        status: "finalInvoice",
-        totalPriceGrossTop: "€1,669.36",
-        totalPriceGrossBottom: "€1,669.36",
-        lastChange: "11/27/2025",
-        endDate: "01/01/2026",
-    },
 ];
 
-const statusConfig: Record<
-    OrderStatus,
-    { label: string; borderColor: string; textColor: string }
-> = {
+const statusConfig = {
     accepted: {
         label: "Accepted",
         borderColor: "#00747a",
@@ -94,9 +69,9 @@ const statusConfig: Record<
         borderColor: "#00747a",
         textColor: "#00747a",
     },
-};
+} as const;
 
-const StatusPill: React.FC<{ status: OrderStatus }> = ({status}) => {
+const StatusPill: React.FC<{ status: OrderStatus }> = ({ status }) => {
     const cfg = statusConfig[status];
     return (
         <Chip
@@ -107,8 +82,9 @@ const StatusPill: React.FC<{ status: OrderStatus }> = ({status}) => {
                 color: cfg.textColor,
                 borderRadius: "999px",
                 px: 1.8,
-                fontSize: 12,
                 height: 32,
+                fontSize: 12,
+                fontFamily: FONT_FAMILY,
             }}
         />
     );
@@ -121,6 +97,7 @@ export const OrderList: React.FC = () => {
                 bgcolor: "#f4f4f4",
                 minHeight: "100vh",
                 p: 4,
+                fontFamily: FONT_FAMILY,
             }}
         >
             <Typography
@@ -128,47 +105,45 @@ export const OrderList: React.FC = () => {
                 sx={{
                     fontWeight: 300,
                     textTransform: "uppercase",
+                    letterSpacing: "0.12em",
                     color: "#214553",
                     mb: 3,
+                    fontFamily: FONT_FAMILY,
                 }}
             >
                 Orders
             </Typography>
 
-            <Paper
-                elevation={2}
-                sx={{
-                    borderRadius: 1,
-                    overflow: "hidden",
-                }}
-            >
-                <Box
-                    sx={{
-                        p: 2.5,
-                    }}
-                >
-                    <TextField
-                        fullWidth
-                        size="small"
-                        placeholder="Search by order number or address"
-                        sx={{bgcolor: "#f7f7f7"}}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon sx={{color: "#9e9e9e"}}/>
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Box>
-
-                {/* Filters row */}
+            <Paper elevation={2} sx={{ borderRadius: 1, overflow: "hidden" }}>
+                {/* SEARCH */}
                 <Box
                     sx={{
                         p: 2.5,
                         borderBottom: "1px solid #e0e0e0",
                     }}
                 >
+                    <TextField
+                        fullWidth
+                        size="small"
+                        placeholder="Search by order number or address"
+                        sx={{
+                            bgcolor: "#f7f7f7",
+                            "& .MuiInputBase-root": {
+                                fontSize: 14,
+                                fontFamily: FONT_FAMILY,
+                            },
+                        }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon sx={{ color: "#9e9e9e" }} />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Box>
+
+                <Box sx={{ p: 2.5, borderBottom: "1px solid #e0e0e0" }}>
                     <Stack direction="row" spacing={2} flexWrap="wrap">
                         {[
                             "Status",
@@ -183,7 +158,14 @@ export const OrderList: React.FC = () => {
                             <FormControl
                                 key={label}
                                 size="small"
-                                sx={{minWidth: 140, bgcolor: "#ffffff"}}
+                                sx={{
+                                    minWidth: 140,
+                                    bgcolor: "#fff",
+                                    "& .MuiSelect-select": {
+                                        fontFamily: FONT_FAMILY,
+                                        fontSize: 13,
+                                    },
+                                }}
                             >
                                 <Select
                                     displayEmpty
@@ -203,139 +185,100 @@ export const OrderList: React.FC = () => {
                     </Stack>
                 </Box>
 
-                {/* "Actions / Exports" bar */}
                 <Box
                     sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
                         px: 2.5,
                         py: 1.5,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        borderBottom: "1px solid #e0e0e0",
-                        bgcolor: "#fafafa",
+                        fontFamily: FONT_FAMILY,
                     }}
                 >
                     <Typography
-                        variant="body2"
-                        sx={{color: "#b0b0b0", textTransform: "uppercase"}}
+                        sx={{
+                            color: "#b0b0b0",
+                            textTransform: "uppercase",
+                            fontSize: 11,
+                            letterSpacing: "0.08em",
+                            fontFamily: FONT_FAMILY,
+                        }}
                     >
                         Actions
                     </Typography>
 
                     <Box
                         sx={{
-                            display: "inline-flex",
+                            display: "flex",
                             alignItems: "center",
                             gap: 0.5,
                             cursor: "pointer",
                             color: "#0095b9",
-                            textTransform: "uppercase",
                             fontSize: 12,
+                            fontFamily: FONT_FAMILY,
                         }}
                     >
                         <IconButton size="small">
-                            <DownloadOutlinedIcon fontSize="small"/>
+                            <DownloadOutlinedIcon fontSize="small" />
                         </IconButton>
-                        <Typography variant="body2" sx={{fontWeight: 500}}>
+                        <Typography sx={{ fontWeight: 500, fontFamily: FONT_FAMILY }}>
                             Exports
                         </Typography>
                     </Box>
                 </Box>
 
-                {/* Table */}
-                <Box sx={{overflowX: "auto"}}>
-                    <Table size="small">
+                <Box sx={{ overflowX: "auto" }}>
+                    <Table
+                        size="small"
+                        sx={{
+                            "& .MuiTableHead-root": { backgroundColor: "#f3f3f3" },
+
+                            "& .MuiTableCell-head": {
+                                fontFamily: FONT_FAMILY,
+                                fontSize: 11,
+                                fontWeight: 500,
+                                textTransform: "uppercase",
+                                letterSpacing: "0.06em",
+                                color: "#214553",
+                                borderBottom: "1px solid #e0e0e0",
+                                paddingY: 1.5,
+                            },
+
+                            "& .MuiTableCell-body": {
+                                fontFamily: FONT_FAMILY,
+                                fontSize: 13,
+                                color: "#4b4b4b",
+                                borderBottom: "1px solid #e0e0e0",
+                                paddingY: 1.5,
+                            },
+
+                            "& .MuiCheckbox-root": {
+                                color: "#757575",
+                            },
+
+                            "& .MuiTableRow-root:hover": {
+                                backgroundColor: "#f9f9f9",
+                            },
+                        }}
+                    >
                         <TableHead>
                             <TableRow>
-                                <TableCell padding="checkbox"/>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    Order number
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    Address
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    Location
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    Total area
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    Status
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    Total price gross
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    Last change
-                                </TableCell>
-                                <TableCell
-                                    sx={{
-                                        fontWeight: 600,
-                                        fontSize: 12,
-                                        textTransform: "uppercase",
-                                        color: "#607d8b",
-                                    }}
-                                >
-                                    End date
-                                </TableCell>
+                                <TableCell padding="checkbox" />
+                                <TableCell>Order number</TableCell>
+                                <TableCell>Address</TableCell>
+                                <TableCell>Location</TableCell>
+                                <TableCell align="right">Total area</TableCell>
+                                <TableCell align="center">Status</TableCell>
+                                <TableCell align="right">Total price gross</TableCell>
+                                <TableCell align="right">Last change</TableCell>
+                                <TableCell align="right">End date</TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            {orders.map((order) => (
-                                <TableRow key={order.id} hover>
+                            {orders.map((o) => (
+                                <TableRow key={o.id} hover>
                                     <TableCell padding="checkbox">
-                                        <Checkbox size="small"/>
+                                        <Checkbox size="small" />
                                     </TableCell>
 
                                     <TableCell
@@ -346,31 +289,31 @@ export const OrderList: React.FC = () => {
                                             whiteSpace: "nowrap",
                                         }}
                                     >
-                                        {order.orderNumber}
+                                        {o.orderNumber}
                                     </TableCell>
 
-                                    <TableCell sx={{whiteSpace: "pre-line"}}>
-                                        {order.address}
+                                    <TableCell sx={{ whiteSpace: "pre-line" }}>
+                                        {o.address}
                                     </TableCell>
 
-                                    <TableCell sx={{whiteSpace: "pre-line"}}>
-                                        {order.location}
+                                    <TableCell sx={{ whiteSpace: "pre-line" }}>
+                                        {o.location}
                                     </TableCell>
 
-                                    <TableCell>{order.totalArea}</TableCell>
+                                    <TableCell align="right">{o.totalArea}</TableCell>
 
-                                    <TableCell>
-                                        <StatusPill status={order.status}/>
+                                    <TableCell align="center">
+                                        <StatusPill status={o.status} />
                                     </TableCell>
 
-                                    <TableCell sx={{whiteSpace: "pre-line"}}>
-                                        {order.totalPriceGrossTop}
+                                    <TableCell align="right" sx={{ whiteSpace: "pre-line" }}>
+                                        {o.totalPriceGrossTop}
                                         {"\n"}
-                                        {order.totalPriceGrossBottom}
+                                        {o.totalPriceGrossBottom}
                                     </TableCell>
 
-                                    <TableCell>{order.lastChange}</TableCell>
-                                    <TableCell>{order.endDate}</TableCell>
+                                    <TableCell align="right">{o.lastChange}</TableCell>
+                                    <TableCell align="right">{o.endDate}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
