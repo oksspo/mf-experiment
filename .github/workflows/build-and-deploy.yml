@@ -25,11 +25,11 @@ jobs:
       NODE_VERSION: 20
 
       # Public URLs where the built apps will be served on GitHub Pages
-      HOST_PUBLIC_URL: https://<USER>.github.io/<REPO>/
-      ORDER_PUBLIC_URL: https://<USER>.github.io/<REPO>/order
+      HOST_PUBLIC_URL: https://oksspo.github.io/mf-experiment/
+      ORDER_PUBLIC_URL: https://oksspo.github.io/mf-experiment/order
 
       # URL used by the host to load the remoteEntry of "order"
-      ORDER_REMOTE_URL: https://<USER>.github.io/<REPO>/order
+      ORDER_REMOTE_URL: https://oksspo.github.io/mf-experiment/order
 
     steps:
       - name: Checkout repository
